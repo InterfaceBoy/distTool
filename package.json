@@ -9,7 +9,7 @@
     "commit": "git-cz"
   },
   "dependencies": {
-    "axios": "0.18.0",
+    "axios": "0.18.1",
     "core-js": "^3.6.5",
     "hjson": "^3.2.1",
     "view-design": "^4.2.0",
