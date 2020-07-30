@@ -1,0 +1,55 @@
+$fontFamily: "Microsoft YaHei", "PingFang SC";
+
+html body {
+  font-family: $fontFamily;
+  line-height: 1.15; // iview设的是1.5，但ui是常规的1.15，需要覆盖
+}
+
+ul {
+  list-style: none;
+}
+
+/* 重写滚动条样式 */
+/*定义滚动条高宽及背景 高宽分别对应横竖滚动条的尺寸*/
+
+::-webkit-scrollbar {
+  width: 5px;
+  height: 6px;
+  background-color: transparent;
+}
+
+/*定义滚动条轨道 内阴影+圆角*/
+
+::-webkit-scrollbar-track {
+  width: 0;
+  border-radius: 0;
+  background-color: transparent;
+}
+
+/*定义滑块 内阴影+圆角*/
+
+::-webkit-scrollbar-thumb {
+  border-radius: 10px;
+  width: 5px;
+  box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+  background-color: #e7ecf2;
+}
+
+/*滑块效果*/
+
+::-webkit-scrollbar-thumb:hover {
+  border-radius: 5px;
+  box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.2);
+  background: rgba(0, 0, 0, 0.4);
+}
+
+/* transiton动画 */
+.fade-enter-active,
+.fade-leave-active {
+  transition: opacity 0.28s;
+}
+
+.fade-enter,
+.fade-leave-to {
+  opacity: 0;
+}

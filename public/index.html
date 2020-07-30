@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width,initial-scale=1.0" />
+    <link rel="icon" href="<%= BASE_URL %>favicon.ico" />
+    <title></title>
+    <style>
+      html {
+        font-size: 1vw;
+      }
+
+      @media screen and (min-width: 1366px) {
+        html {
+          /* 控制1366-1920 fontsize在 14-18px */
+          font-size: calc(87.5% + 4 * (100vw - 1366px) / 554);
+          font-size: calc(14px + 4 * (100vw - 1366px) / 554);
+        }
+      }
+
+      html,
+      body {
+        width: 100%;
+        height: 100%;
+        overflow: hidden;
+        margin: 0;
+        padding: 0;
+      }
+
+      #app-loading {
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: #2c3e50;
+      }
+
+      #app-loading .spinner {
+        width: 40px;
+        height: 40px;
+        position: absolute;
+        margin: auto;
+        top: 0;
+        bottom: 0;
+        left: 0;
+        right: 0;
+      }
+
+      #app-loading .spinner .dot1,
+      #app-loading .spinner .dot2 {
+        width: 100%;
+        height: 100%;
+        border-radius: 50%;
+        background-color: #fff;
+        opacity: 0.6;
+        position: absolute;
+        top: 0;
+        left: 0;
+        animation: sk-bounce 2s infinite ease-in-out;
+        animation: sk-bounce 2s infinite ease-in-out;
+      }
+
+      #app-loading .spinner .dot2 {
+        animation-delay: -1s;
+        animation-delay: -1s;
+      }
+
+      @-webkit-keyframes sk-bounce {
+        0%,
+        100% {
+          -webkit-transform: scale(0);
+        }
+
+        50% {
+          -webkit-transform: scale(1);
+        }
+      }
+
+      @keyframes sk-bounce {
+        0%,
+        100% {
+          transform: scale(0);
+          -webkit-transform: scale(0);
+        }
+
+        50% {
+          transform: scale(1);
+          -webkit-transform: scale(1);
+        }
+      }
+    </style>
+  </head>
+
+  <body>
+    <noscript>
+      <strong
+        >We're sorry but nature-resource-cli3 doesn't work properly without
+        JavaScript enabled. Please enable it to continue.</strong
+      >
+    </noscript>
+    <div id="app">
+      <!-- loading -->
+      <div id="app-loading">
+        <div class="spinner">
+          <div class="dot1"></div>
+          <div class="dot2"></div>
+        </div>
+      </div>
+    </div>
+    <!-- built files will be auto injected -->
+  </body>
+</html>
