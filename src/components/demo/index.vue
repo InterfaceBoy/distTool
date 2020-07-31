@@ -1,27 +1,39 @@
 <!--
- * @Author: raojw
+ * @Author: 何元鹏
  * @Date: 2020-05-29 15:55:20
- * @LastEditors: raojw
+ * @LastEditors: 何元鹏
  * @LastEditTime: 2020-05-29 15:58:50
 -->
 <template>
   <Layout :style="{ height: '100%' }">
-    <Sider hide-trigger :style="{ background: '#fff' }">
+    <Sider
+      hide-trigger
+      :style="{ background: '#fff' }"
+    >
       <Menu
         :style="{ height: '100%', overflow: 'auto' }"
         theme="light"
         width="auto"
         @on-select="menuSelect"
       >
-        <MenuItem v-for="item in menuData" :key="item.name" :name="item.name">{{
+        <MenuItem
+          v-for="item in menuData"
+          :key="item.name"
+          :name="item.name"
+        >
+          {{
           item.name
-        }}</MenuItem>
+          }}
+        </MenuItem>
       </Menu>
     </Sider>
     <Layout>
       <Content :style="{ padding: '24px', background: '#fff' }">
         <!-- <router-view /> -->
-        <component :is="currentComp" class="comp2-viewer" />
+        <component
+          :is="currentComp"
+          class="comp2-viewer"
+        />
       </Content>
     </Layout>
   </Layout>

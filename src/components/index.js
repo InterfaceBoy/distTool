@@ -1,7 +1,7 @@
 /*
- * @Author: raojw
+ * @Author: 何元鹏
  * @Date: 2020-06-03 10:35:05
- * @LastEditors: raojw
+ * @LastEditors: 何元鹏
  * @LastEditTime: 2020-06-03 10:36:08
  * @Description: 自动注册全局组件
  */

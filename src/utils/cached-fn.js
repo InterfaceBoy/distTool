@@ -1,9 +1,9 @@
 /*
- * @Author: raojw
- * @LastEditors: raojw
+ * @Author: 何元鹏
+ * @LastEditors: 何元鹏
  * @Description: 缓存结果函数 [key(函数): value(该函数返回值)]
  * @Date: 2019-04-22 19:45:20
- * @LastEditTime: 2020-05-29 14:02:51
+ * @LastEditTime: 2020-07-31 13:54:58
  */
 
 export default fn => {

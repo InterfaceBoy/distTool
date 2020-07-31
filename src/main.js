@@ -1,8 +1,8 @@
 /*
- * @Author: raojw
+ * @Author: 何元鹏
  * @Date: 2020-05-29 10:42:53
- * @LastEditors: raojw
- * @LastEditTime: 2020-06-16 09:52:50
+ * @LastEditors: 何元鹏
+ * @LastEditTime: 2020-07-31 13:53:10
  */
 
 // babel polyfill
@@ -14,7 +14,7 @@ import App from "./App.vue";
 import router from "./router";
 import store from "./store";
 
-import iview from "view-design";
+import iView from "view-design";
 import "view-design/dist/styles/iview.css";
 
 import VueEventBus from "vue-plugin-event-bus";
@@ -25,7 +25,7 @@ import "@/svg";
 // 安装全局组件
 import "@/components/index";
 
-Vue.use(iview);
+Vue.use(iView);
 
 Vue.use(VueEventBus);
 
