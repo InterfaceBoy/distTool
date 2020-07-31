@@ -1,7 +1,8 @@
 <template>
-  <div class="home-page">
+  <!-- <div class="home-page">
     <Menu active-name="1-2" :open-names="['1']" on-select="handleSelect"></Menu>
-  </div>
+  </div >-->
+  <div class="home-page">1234</div>
 </template>
 
 <script>
