@@ -12,6 +12,7 @@
     "axios": "0.18.0",
     "core-js": "^3.6.5",
     "hjson": "^3.2.1",
+    "ol": "^6.5.0",
     "view-design": "^4.2.0",
     "vue": "^2.6.11",
     "vue-plugin-event-bus": "^0.0.1",

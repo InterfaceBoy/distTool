@@ -1,9 +1,7 @@
 module.exports = {
   extends: ["cz"],
   rules: {
-      'type-empty': [2, 'never'],
-      'scope-enum': [
-    0
-  ]
+    // "type-empty": [2, "never"],
+    "scope-enum": [0]
   }
 };
