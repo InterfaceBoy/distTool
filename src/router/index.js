@@ -3,7 +3,7 @@ import VueRouter from "vue-router";
 
 import { isDev } from "@/utils/base";
 
-import HomePage from "../views/home-page";
+import HomePage from "@/views/home-page";
 
 Vue.use(VueRouter);
 
@@ -17,14 +17,38 @@ VueRouter.prototype.push = function push(location, onResolve, onReject) {
 };
 
 const routes = [
-  {
+  /* {
     path: "/",
     name: "home-page",
     component: HomePage
+  }, */
+  {
+    path: "/",
+    name: "maps",
+    meta: {
+      navTitle: "地图实例",
+      icon: "logo-xbox"
+    },
+    component: () =>
+      import(
+        /* webpackChunkName: "MonitorWorning" */ "@/views/openLayer/maps.vue"
+      )
+  },
+  {
+    path: "/openLayer",
+    name: "openLayer",
+    meta: {
+      navTitle: "其他实例",
+      icon: "logo-windows"
+    },
+    component: () =>
+      import(
+        /* webpackChunkName: "MonitorWorning" */ "@/views/openLayer/open-layer.vue"
+      )
   }
 ];
 
-if (isDev()) {
+/* if (isDev()) {
   routes.push(
     {
       path: "/comp",
@@ -37,7 +61,7 @@ if (isDev()) {
       component: () => import("@/views/svg-viewer.vue")
     }
   );
-}
+} */
 
 const router = new VueRouter({
   routes

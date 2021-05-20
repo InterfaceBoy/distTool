@@ -1,19 +1,11 @@
 <template>
-  <div class="home-page">
-    <Menu mode="vertical" active-name="1" theme="dark" @on-select="handelMenuItemSelect">
-      <MenuItem v-for="(item,index)  in routerHome" :key="index" :name="item">
-        <Icon :type="item.meta.icon" />
-        {{item.meta.navTitle}}
-      </MenuItem>
-    </Menu>
-  </div>
+  <div class="open-layers">openlayers</div>
 </template>
 
 <script>
-import router from "@/router/index.js";
 export default {
   // 组件名称
-  name: "homePage",
+  name: "demo",
   // 组件参数 接收来自父组件的数据
   props: {
     cs: {
@@ -28,32 +20,11 @@ export default {
     return {};
   },
   // 计算属性
-  computed: {
-    routerHome() {
-      console.log(router.options.routes);
-      return router.options.routes;
-    },
-  },
+  computed: {},
   // 侦听器
-  watch: {
-    $route: {
-      immediate: true,
-      handler(route) {
-        // 获取系统一级子菜单
-        const { name, meta } = route.matched[0];
-        console.log(name, meta, route.matched[0]);
-      },
-    },
-  },
+  watch: {},
   // 组件方法
-  methods: {
-    handelMenuItemSelect(e) {
-      const name = e.name;
-      this.$router.push({
-        name,
-      });
-    },
-  },
+  methods: {},
   // 以下是生命周期钩子   注：没用到的钩子请自行删除
   /**
    * 在实例初始化之后，组件属性计算之前，如data属性等
@@ -62,10 +33,7 @@ export default {
   /**
    * 组件实例创建完成，属性已绑定，但DOM还未生成，$ el属性还不存在
    */
-  created() {
-    console.log();
-    // 获取路由
-  },
+  created() {},
   /**
    * 在挂载开始之前被调用：相关的 render 函数首次被调用。
    */
@@ -106,11 +74,4 @@ export default {
 </script>
 
 <style scoped lang="scss">
-.home-page {
-  width: 100%;
-  height: 100%;
-  .ivu-menu {
-    height: 100% !important;
-  }
-}
 </style>
