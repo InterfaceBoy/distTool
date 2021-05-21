@@ -3,8 +3,8 @@ import VueRouter from "vue-router";
 
 import { isDev } from "@/utils/base";
 
-import HomePage from "@/views/home-page";
-
+import Layout from "@/layout/Layout.vue";
+import HomePage from "@/views/home-page.vue";
 Vue.use(VueRouter);
 
 // fix vue-router 3.1 push 相同路由报错
@@ -16,14 +16,15 @@ VueRouter.prototype.push = function push(location, onResolve, onReject) {
   return originalPush.call(this, location).catch(err => err);
 };
 
-const routes = [
-  /* {
-    path: "/",
-    name: "home-page",
-    component: HomePage
-  }, */
+export const constantRoutes = [
   {
     path: "/",
+    name: "HomePage",
+    meta: { title: '首页', icon: 'dashboard' },
+    component: HomePage
+  },
+  {
+    path: "/maps",
     name: "maps",
     meta: {
       navTitle: "地图实例",
@@ -48,8 +49,8 @@ const routes = [
   }
 ];
 
-/* if (isDev()) {
-  routes.push(
+if (isDev()) {
+  constantRoutes.push(
     {
       path: "/comp",
       name: "comp",
@@ -61,10 +62,20 @@ const routes = [
       component: () => import("@/views/svg-viewer.vue")
     }
   );
-} */
+}
 
-const router = new VueRouter({
-  routes
-});
+const createRouter = () => new VueRouter({
+  // mode: 'history', // require service support
+  scrollBehavior: () => ({ y: 0 }),
+  routes: constantRoutes
+})
 
-export default router;
+const router = createRouter()
+
+// Detail see: https://github.com/vuejs/vue-router/issues/1234#issuecomment-357941465
+export function resetRouter() {
+  const newRouter = createRouter()
+  router.matcher = newRouter.matcher // reset router
+}
+
+export default router
