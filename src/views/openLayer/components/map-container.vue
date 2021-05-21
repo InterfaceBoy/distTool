@@ -39,7 +39,7 @@ export default {
       ],
       view: new View({
         zoom: 0,
-        center: [0, 0],
+        center: [121.498586, 31.239637],
         constrainResolution: true,
       }),
     });

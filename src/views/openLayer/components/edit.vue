@@ -11,9 +11,11 @@ export default {
   computed: {
     geojsonEdit: {
       set(value) {
+        console.log(value);
         this.$emit("change", JSON.parse(value));
       },
       get() {
+        console.log(this.geojson);
         return JSON.stringify(this.geojson, null, " ");
       },
     },
