@@ -1,10 +1,17 @@
 <template>
   <div class="app-main">
-    <header class="app-main-header"></header>
+    <header class="app-main-header">
+      <Menu mode="horizontal" active-name="1" theme="dark" @on-select="handelMenuItemSelect">
+        <MenuItem v-for="(item,index)  in routerHome" :key="index" :name="item">
+          <Icon :type="item.meta.icon" />
+          {{item.meta.title}}
+        </MenuItem>
+      </Menu>
+    </header>
     <article class="app-main-center">
       <aside class="app-main-center-right"></aside>
       <section class="app-main-center-left">
-        <router-view />
+        <router-view :key="key" />
       </section>
     </article>
     <footer class="app-main-footer"></footer>
@@ -29,11 +36,29 @@ export default {
     return {};
   },
   // 计算属性
-  computed: {},
+  computed: {
+    routerHome() {
+      console.log(this.$router.options.routes);
+      return this.$router.options.routes;
+    },
+    key() {
+      return this.$route.name !== undefined
+        ? this.$route.name + +new Date()
+        : this.$route + +new Date();
+    },
+  },
   // 侦听器
   watch: {},
   // 组件方法
-  methods: {},
+  methods: {
+    handelMenuItemSelect(e) {
+      const name = e.name;
+      console.log(name);
+      this.$router.push({
+        name,
+      });
+    },
+  },
   // 以下是生命周期钩子   注：没用到的钩子请自行删除
   /**
    * 在实例初始化之后，组件属性计算之前，如data属性等

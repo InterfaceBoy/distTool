@@ -1,13 +1,13 @@
 <template>
   <div id="app">
-    <Layout></Layout>
+   <router-view />
   </div>
 </template>
 <script>
 import Layout from "@/layout/Layout.vue";
 export default {
  // 局部注册的组件
-  components: {Layout},
+  // components: {Layout},
 }
 </script>
 <style lang="scss">

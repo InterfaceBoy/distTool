@@ -4,7 +4,6 @@ import VueRouter from "vue-router";
 import { isDev } from "@/utils/base";
 
 import Layout from "@/layout/Layout.vue";
-import HomePage from "@/views/home-page.vue";
 Vue.use(VueRouter);
 
 // fix vue-router 3.1 push 相同路由报错
@@ -19,37 +18,53 @@ VueRouter.prototype.push = function push(location, onResolve, onReject) {
 export const constantRoutes = [
   {
     path: "/",
-    name: "HomePage",
-    meta: { title: '首页', icon: 'dashboard' },
-    component: HomePage
+    name: 'HomePage',
+    component: Layout,
+    redirect: '/homePage',
+    meta: { title: '首页' , icon: "md-easel" },
+    children: [{
+      path: 'homePage',
+      name: 'HomePage',
+      component: () => import('@/views/home-page.vue'),
+    }]
   },
   {
-    path: "/maps",
-    name: "maps",
+    path: "/map",
+    component: Layout,
+    redirect: '/openLayer',
+    name: "Map",
     meta: {
-      navTitle: "地图实例",
+      title: "地图模块",
       icon: "logo-xbox"
     },
-    component: () =>
-      import(
-        /* webpackChunkName: "MonitorWorning" */ "@/views/openLayer/maps.vue"
-      )
-  },
-  {
-    path: "/openLayer",
-    name: "openLayer",
-    meta: {
-      navTitle: "其他实例",
-      icon: "logo-windows"
+    children: [ {
+      path: "/openLayer",
+      name: "openLayer",
+      meta: {
+        title: "地图模块1",
+        icon: "logo-xbox"
+      },
+      component: () =>
+        import(
+          /* webpackChunkName: "MonitorWorning" */ "@/views/openLayer/open-layer.vue"
+        )
     },
-    component: () =>
-      import(
-        /* webpackChunkName: "MonitorWorning" */ "@/views/openLayer/open-layer.vue"
-      )
-  }
+    {
+      path: "maps",
+      name: "maps",
+      meta: {
+        title: "地图模块2",
+        icon: "logo-xbox"
+      },
+      component: () =>
+        import(
+          /* webpackChunkName: "MonitorWorning" */ "@/views/openLayer/maps.vue"
+        )
+    }]
+  },
 ];
 
-if (isDev()) {
+/* if (isDev()) {
   constantRoutes.push(
     {
       path: "/comp",
@@ -62,7 +77,7 @@ if (isDev()) {
       component: () => import("@/views/svg-viewer.vue")
     }
   );
-}
+} */
 
 const createRouter = () => new VueRouter({
   // mode: 'history', // require service support
