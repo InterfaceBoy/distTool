@@ -18,7 +18,19 @@ VueRouter.prototype.push = function push(location, onResolve, onReject) {
 export const constantRoutes = [
   {
     path: "/",
-    name: 'HomePage',
+    name: 'Login',
+    component: Layout,
+    redirect: '/login',
+    meta: { title: '首页' , icon: "md-easel" },
+    children: [{
+      path: 'homePage',
+      name: 'HomePage',
+      component: () => import('@/views/login.vue'),
+    }]
+  },
+  {
+    path: "/",
+    name: 'homePage',
     component: Layout,
     redirect: '/homePage',
     meta: { title: '首页' , icon: "md-easel" },
