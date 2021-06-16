@@ -1,15 +1,26 @@
 <template>
   <div class="app-main">
     <header class="app-main-header">
-      <Menu mode="horizontal" active-name="1" theme="dark" @on-select="handelMenuItemSelect">
-        <MenuItem v-for="(item,index)  in routerHome" :key="index" :name="item">
-          <Icon :type="item.meta.icon" />
-          {{item.meta.title}}
+      <Menu
+        mode="horizontal"
+        active-name="1"
+        theme="dark"
+        @on-select="handelMenuItemSelect"
+      >
+        <MenuItem
+          v-for="(item,index)  in routerHome"
+          :key="index"
+          :name="JSON.stringify(item)"
+        >
+        <Icon :type="item.meta.icon" />
+        {{item.meta.title}}
         </MenuItem>
       </Menu>
     </header>
     <article class="app-main-center">
-      <aside class="app-main-center-right"></aside>
+      <aside class="app-main-center-right">
+        <menu-layout :subordinateRoute="subordinateRoute"></menu-layout>
+      </aside>
       <section class="app-main-center-left">
         <router-view :key="key" />
       </section>
@@ -19,26 +30,24 @@
 </template>
 
 <script>
+import store from "@/store";
 export default {
   // 组件名称
   name: "Layout",
   // 组件参数 接收来自父组件的数据
-  props: {
-    cs: {
-      type: String,
-      default: () => "",
-    },
-  },
+  props: {},
   // 局部注册的组件
-  components: {},
+   components: { },
   // 组件状态值
   data() {
-    return {};
+    return {
+      subordinateRoute:store.getters["app/RouterInfo"]
+    };
   },
   // 计算属性
   computed: {
     routerHome() {
-      console.log(this.$router.options.routes);
+      console.log(this.$router.options.routes,this.$route.path);
       return this.$router.options.routes;
     },
     key() {
@@ -52,18 +61,24 @@ export default {
   // 组件方法
   methods: {
     handelMenuItemSelect(e) {
-      const name = e.name;
-      console.log(name);
+      const routeInfo = JSON.parse(e);
+      console.log(routeInfo);
+      const {name,children} =routeInfo;
+      console.log(name,children,children.length);
+      this.subordinateRoute = children.length<2 ?[]:children;
       this.$router.push({
         name,
       });
     },
+
   },
   // 以下是生命周期钩子   注：没用到的钩子请自行删除
   /**
    * 在实例初始化之后，组件属性计算之前，如data属性等
    */
-  beforeCreate() {},
+  beforeCreate() {
+    console.log( store.getters["app/RouterInfo"]);
+  },
   /**
    * 组件实例创建完成，属性已绑定，但DOM还未生成，$ el属性还不存在
    */
@@ -114,15 +129,23 @@ export default {
   position: relative;
   display: grid;
   grid-template-columns: 100%;
-  grid-template-rows: 3rem auto 3rem;
+  grid-template-rows: 4.29rem auto 3rem;
   &-header {
+    height: 4.29rem;
   }
   &-center {
     display: grid;
     grid-template-columns: 12rem auto;
     grid-template-rows: 100%;
+    &-right {
+      width: 12rem;
+    }
+    &-left {
+      width: 100%;
+    }
   }
   &-footer {
+    height: 3rem;
   }
 }
 </style>

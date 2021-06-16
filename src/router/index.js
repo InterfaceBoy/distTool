@@ -16,7 +16,7 @@ VueRouter.prototype.push = function push(location, onResolve, onReject) {
 };
 
 export const constantRoutes = [
-  {
+  /* {
     path: "/",
     name: 'Login',
     component: Layout,
@@ -27,7 +27,7 @@ export const constantRoutes = [
       name: 'HomePage',
       component: () => import('@/views/login.vue'),
     }]
-  },
+  }, */
   {
     path: "/",
     name: 'homePage',
