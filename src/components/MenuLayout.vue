@@ -2,7 +2,7 @@
  * @Author: 何元鹏
  * @Date: 2021-06-16 15:12:10
  * @LastEditors: 何元鹏
- * @LastEditTime: 2021-06-16 16:28:53
+ * @LastEditTime: 2021-06-16 16:38:55
 -->
 <template>
   <div>
@@ -52,7 +52,6 @@ export default {
       handelMenuItemSubordinateSelect(e){
       const SubordinateRouteInfo = JSON.parse(e);
       store.commit("app/setRouterInfo", SubordinateRouteInfo);
-      console.log( store.getters["app/RouterInfo"]);
 
       const {name}=SubordinateRouteInfo;
       this.$router.push({

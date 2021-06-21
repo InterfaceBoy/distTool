@@ -41,7 +41,7 @@ export default {
   // 组件状态值
   data() {
     return {
-      subordinateRoute:store.getters["app/RouterInfo"]
+      subordinateRoute:store.getters["app/getRouterInfo"]
     };
   },
   // 计算属性
@@ -139,6 +139,7 @@ export default {
     grid-template-rows: 100%;
     &-right {
       width: 12rem;
+      border-right: 1px solid #eee;
     }
     &-left {
       width: 100%;
@@ -146,6 +147,7 @@ export default {
   }
   &-footer {
     height: 3rem;
+    border-top: 1px solid #eee;
   }
 }
 </style>

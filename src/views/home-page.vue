@@ -2,12 +2,26 @@
  * @Author: 何元鹏
  * @Date: 2021-06-11 14:49:57
  * @LastEditors: 何元鹏
- * @LastEditTime: 2021-06-16 13:45:42
+ * @LastEditTime: 2021-06-17 14:27:04
 -->
 <template>
-  <div class="body">
-    <div class="main">
-      <!--功能区-->
+  <div class="login">
+    <div class="login-main active">
+      <div class="switchWrapper">
+        <div class="text flexCenter">去登录</div>
+        <div class="text flexCenter">去注册</div>
+      </div>
+    </div>
+    <div class="login-features">
+      <div class="login-box">
+        <div class="">注册内容区</div>
+      </div>
+      <div class="login-sign">
+        <div class="">登录内容区</div>
+      </div>
+    </div>
+
+    <!-- <div class="main">
       <div class="switchWrapper flexCenter">
         <div class="btn flexCenter">
           <div class="text flexCenter">去登录</div>
@@ -15,12 +29,14 @@
         </div>
       </div>
     </div>
-    <!-- 表单区域 -->
     <div class="outerBox">
-      <div class="container flexCenter">
+      <div class="container ">
         <div class="signInBox">注册内容区</div>
       </div>
-    </div>
+      <div class="container ">
+        <div class="signInBox">登录内容区</div>
+      </div>
+    </div> -->
   </div>
 
 </template>
@@ -52,14 +68,7 @@ export default {
   watch: {},
   // 组件方法
   methods: {
-    handelFlexCenter(){
-      const main = document.querySelector('.main');
-        if (main.className.indexOf('active') != -1) {
-          main.className = 'main';
-        } else {
-          main.className = 'main active';
-        }
-    },
+
   },
   // 以下是生命周期钩子   注：没用到的钩子请自行删除
   /**
@@ -137,92 +146,114 @@ export default {
 </script>
 
 <style scoped lang="scss">
-.body {
-  background-color: #ededed;
-  display: flex;
-  width: 100vw;
-  height: 100vh;
-  overflow: hidden;
-}
-.flexCenter {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.main {
+.login {
+  width: 100%;
+  height: 100%;
   position: relative;
-  width: 100%;
-  height: 100%;
-  margin: auto;
-  overflow: hidden;
+  &-main {
+    position: absolute;
+    width: 50%;
+    height: 100%;
+    background-image: url("../assets/bk.jpg");
+    background-size: cover;
+    background-position: top left;
+    transition: transform 3s ease-in-out;
+    transform: translateX(100%);
+  }
+  .active {
+    transform: translateX(0%);
+  }
+  &-features {
+    width: 100%;
+    height: 100%;
+    display: grid;
+    grid-template-columns: 50%;
+    grid-template-rows: 100%;
+    grid-auto-flow: column;
+  }
 }
+</style>
+<style scoped lang="scss">
+// .body {
+//   width: 100%;
+//   height: 100%;
+//   overflow: hidden;
+//   .flexCenter {
+//     display: flex;
+//     align-items: center;
+//     justify-content: center;
+//   }
+//   .main {
+//     position: relative;
+//     width: 100%;
+//     height: 100%;
+//     margin: auto;
+//     overflow: hidden;
 
-.switchWrapper {
-  position: absolute;
-  z-index: 99;
-  left: 0;
-  overflow: hidden;
-  width: 20%;
-  height: 100%;
-  background-color: rgba(255, 255, 255, 0.4);
-  transition: transform 1s ease-in-out;
-}
-.btn {
-  position: absolute;
-  width: 90px;
-  height: 36px;
-  color: #fffffe;
-  background-color: #ff8906;
-  font-size: 15px;
-  border-radius: 30px;
-  cursor: pointer;
-  flex-wrap: wrap;
-  overflow: hidden;
-}
+//     .text {
+//       width: 100%;
+//       height: 100%;
+//       transition: all 1.5s ease-in-out;
+//     }
+//   }
+//   .outerBox {
+//     width: 100%;
+//     height: 100%;
+//     display: grid;
+//     grid-template-columns: 50%;
+//     grid-template-rows: 100%;
+//     .container {
+//     }
+//   }
+// }
 
-.active .switchWrapper {
-  transform: translateX(calc(900px - 100%));
-}
-.outerBox {
-  position: absolute;
-  z-index: 9;
-  left: 20%;
-  overflow: hidden;
-  width: 20%;
-  height: 100%;
-  transition: all 1s ease-in-out;
-}
-.container {
-  width: 100%;
-  height: 100%;
-  background-color: #fffffe;
-}
-.active .outerBox {
-  transform: translateX(calc(-900px + 100%));
-}
-.switchWrapper::after {
-  content: "";
-  display: block;
-  background-image: url("../assets/bk.jpg");
-  background-size: 990px 100%;
-  background-position: top left;
-  width: 100%;
-  height: 100%;
-  overflow: hidden;
-  transition: all 1s ease-in-out;
-}
+// .switchWrapper {
+//   position: absolute;
+//   z-index: 99;
+//   left: 0;
+//   overflow: hidden;
+//   width: 50%;
+//   height: 100%;
+//   background-color: rgba(255, 255, 255, 0.4);
+//   transition: transform 1s ease-in-out;
+// }
+// .btn {
+//   position: absolute;
+//   width: 90px;
+//   height: 36px;
+//   color: #fffffe;
+//   background-color: #ff8906;
+//   font-size: 15px;
+//   border-radius: 30px;
+//   cursor: pointer;
+//   flex-wrap: wrap;
+//   overflow: hidden;
+// }
 
-.active .switchWrapper::after {
-  background-position: top right;
-}
-.text {
-  width: 100%;
-  height: 100%;
-  transition: all 1s ease-in-out;
-}
+// .active .switchWrapper {
+//   transform: translateX(100%);
+// }
 
-.active .text:first-child {
+// .active .outerBox {
+//   transform: translateX(calc(50% + 100%));
+// }
+// .switchWrapper::after {
+//   content: "";
+//   display: block;
+//   background-image: url("../assets/bk.jpg");
+//   background-size: 990px 100%;
+//   background-position: top left;
+//   width: 100%;
+//   height: 100%;
+//   overflow: hidden;
+//   transition: all 1s ease-in-out;
+// }
+
+// .active .switchWrapper::after {
+//   background-position: top right;
+// }
+
+/* .active .text:first-child {
   margin-top: -100%;
-}
+} */
 </style>
