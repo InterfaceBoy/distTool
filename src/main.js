@@ -2,7 +2,7 @@
  * @Author: 何元鹏
  * @Date: 2020-05-29 10:42:53
  * @LastEditors: 何元鹏
- * @LastEditTime: 2020-07-31 13:53:10
+ * @LastEditTime: 2021-06-23 10:23:28
  */
 
 // babel polyfill
@@ -36,6 +36,8 @@ import initConfig from "./initAppConfig.js";
 
 // 全局css
 import "./styles/global.scss";
+// 引入tailWindCss
+import "tailwindcss/tailwind.css";
 
 function renderPage() {
   new Vue({

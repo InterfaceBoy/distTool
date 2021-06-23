@@ -2,7 +2,7 @@
  * @Author: 何元鹏
  * @Date: 2021-06-11 14:49:57
  * @LastEditors: 何元鹏
- * @LastEditTime: 2021-06-17 14:27:04
+ * @LastEditTime: 2021-06-23 15:49:34
 -->
 <template>
   <div class="login">
@@ -14,10 +14,23 @@
     </div>
     <div class="login-features">
       <div class="login-box">
-        <div class="">注册内容区</div>
+        <div>注册内容区</div>
       </div>
       <div class="login-sign">
-        <div class="">登录内容区</div>
+        <!--  <div class="text-gray-900 dark:text-white">登录内容区</div> -->
+        <div class="p-6 max-w-sm mx-auto bg-white rounded-xl shadow-md flex items-center space-x-4">
+          <div class="flex-shrink-0">
+            <img
+              class="h-12 w-12"
+              src="/img/logo.svg"
+              alt="ChitChat Logo"
+            >
+          </div>
+          <div>
+            <div class="text-xl font-medium text-black">ChitChat</div>
+            <p class="text-gray-500">You have a new message!</p>
+          </div>
+        </div>
       </div>
     </div>
 
@@ -55,9 +68,6 @@ export default {
   // 局部注册的组件
   components: {},
   // 组件状态值
-
-
-
   data () {
    return {
    }
@@ -91,22 +101,6 @@ export default {
   * 如果 root 实例挂载了一个文档内元素，当 mounted 被调用–也在文档内。
   */
   mounted () {
- const main = document.querySelector('.main');
-      const btn = document.querySelector('.btn');
-      const signInBox = document.querySelector('.signInBox');
-      btn.onclick = () => {
-        if (main.className.indexOf('active') != -1) {
-          main.className = 'main';
-          setTimeout(() => {
-            signInBox.innerText = '注册内容区';
-          }, 500);
-        } else {
-          main.className = 'main active';
-          setTimeout(() => {
-            signInBox.innerText = '登录内容区';
-          }, 500);
-        }
-      };
   },
   /**
   * 数据更新时调用，发生在虚拟 DOM 重新渲染和打补丁之前。

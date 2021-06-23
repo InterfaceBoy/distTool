@@ -13,6 +13,7 @@
                 ref="drop"
                 @mouseenter.native="handleMouseenter"
                 @mouseleave.native="handleMouseleave"
+                :eventsEnabled="eventsEnabled"
                 :data-transfer="transfer"
                 :transfer="transfer"
                 v-transfer-dom><slot name="list"></slot></Drop>
@@ -67,6 +68,11 @@
                 default () {
                     return !this.$IVIEW ? true : this.$IVIEW.capture;
                 }
+            },
+            // 4.6.0
+            eventsEnabled: {
+                type: Boolean,
+                default: false
             }
         },
         computed: {
@@ -113,7 +119,9 @@
                 if (this.trigger !== 'click') {
                     return false;
                 }
-                this.currentVisible = !this.currentVisible;
+                // #661
+                const $parent = this.hasParent();
+                if (!$parent) this.currentVisible = !this.currentVisible;
             },
             handleRightClick () {
                 if (this.trigger === 'custom') return false;

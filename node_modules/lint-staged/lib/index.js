@@ -9,6 +9,7 @@ const { PREVENTED_EMPTY_COMMIT, GIT_ERROR, RESTORE_STASH_EXAMPLE } = require('./
 const printTaskOutput = require('./printTaskOutput')
 const runAll = require('./runAll')
 const { ApplyEmptyCommitError, GetBackupStashError, GitError } = require('./symbols')
+const formatConfig = require('./formatConfig')
 const validateConfig = require('./validateConfig')
 
 const errConfigNotFound = new Error('Config could not be found')
@@ -30,7 +31,9 @@ function loadConfig(configPath) {
       '.lintstagedrc.yaml',
       '.lintstagedrc.yml',
       '.lintstagedrc.js',
+      '.lintstagedrc.cjs',
       'lint-staged.config.js',
+      'lint-staged.config.cjs',
     ],
   })
 
@@ -88,7 +91,8 @@ module.exports = async function lintStaged(
     debugLog('Successfully loaded config from `%s`:\n%O', resolved.filepath, resolved.config)
     // resolved.config is the parsed configuration object
     // resolved.filepath is the path to the config file that was found
-    const config = validateConfig(resolved.config)
+    const formattedConfig = formatConfig(resolved.config)
+    const config = validateConfig(formattedConfig)
     if (debug) {
       // Log using logger to be able to test through `consolemock`.
       logger.log('Running lint-staged with the following config:')
@@ -124,19 +128,24 @@ module.exports = async function lintStaged(
       printTaskOutput(ctx, logger)
       return true
     } catch (runAllError) {
-      const { ctx } = runAllError
-      if (ctx.errors.has(ApplyEmptyCommitError)) {
-        logger.warn(PREVENTED_EMPTY_COMMIT)
-      } else if (ctx.errors.has(GitError) && !ctx.errors.has(GetBackupStashError)) {
-        logger.error(GIT_ERROR)
-        if (ctx.shouldBackup) {
-          // No sense to show this if the backup stash itself is missing.
-          logger.error(RESTORE_STASH_EXAMPLE)
+      if (runAllError && runAllError.ctx && runAllError.ctx.errors) {
+        const { ctx } = runAllError
+        if (ctx.errors.has(ApplyEmptyCommitError)) {
+          logger.warn(PREVENTED_EMPTY_COMMIT)
+        } else if (ctx.errors.has(GitError) && !ctx.errors.has(GetBackupStashError)) {
+          logger.error(GIT_ERROR)
+          if (ctx.shouldBackup) {
+            // No sense to show this if the backup stash itself is missing.
+            logger.error(RESTORE_STASH_EXAMPLE)
+          }
         }
+
+        printTaskOutput(ctx, logger)
+        return false
       }
 
-      printTaskOutput(ctx, logger)
-      return false
+      // Probably a compilation error in the config js file. Pass it up to the outer error handler for logging.
+      throw runAllError
     }
   } catch (lintStagedError) {
     if (lintStagedError === errConfigNotFound) {

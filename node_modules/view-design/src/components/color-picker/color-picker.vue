@@ -41,6 +41,7 @@
                 :data-transfer="transfer"
                 :transfer="transfer"
                 :class="dropClasses"
+                :eventsEnabled="eventsEnabled"
             >
                 <transition name="fade">
                     <div
@@ -84,7 +85,7 @@
                         <div :class="[prefixCls + '-confirm']">
                             <span :class="confirmColorClasses">
                                 <template v-if="editable">
-                                    <i-input :value="formatColor" size="small" @on-enter="handleEditColor" @on-blur="handleEditColor"></i-input>
+                                    <i-input ref="editColorInput" :value="formatColor" size="small" @on-enter="handleEditColor" @on-blur="handleEditColor"></i-input>
                                 </template>
                                 <template v-else>{{formatColor}}</template>
                             </span>
@@ -228,6 +229,14 @@ export default {
             default () {
                 return !this.$IVIEW ? true : this.$IVIEW.capture;
             }
+        },
+        transferClassName: {
+            type: String
+        },
+        // 4.6.0
+        eventsEnabled: {
+            type: Boolean,
+            default: false
         }
     },
 
@@ -321,6 +330,7 @@ export default {
                 {
                     [`${this.prefixCls}-transfer`]: this.transfer,
                     [`${this.prefixCls}-hide-drop`]: this.hideDropDown,
+                    [this.transferClassName]: this.transferClassName
                 },
             ];
         },
@@ -420,7 +430,9 @@ export default {
         handleClose(event) {
             if (this.visible) {
                 if (this.dragging || event.type === 'mousedown') {
-                    event.preventDefault();
+                    if (this.$refs.editColorInput && event.target !== this.$refs.editColorInput.$el.querySelector('input')) {
+                        event.preventDefault();
+                    }
                     return;
                 }
 

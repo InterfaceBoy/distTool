@@ -23,8 +23,9 @@
         <transition name="transition-drop">
             <Drop
                 v-show="visible"
-                :class="{ [prefixCls + '-transfer']: transfer }"
+                :class="dropdownCls"
                 ref="drop"
+                :eventsEnabled="eventsEnabled"
                 :data-transfer="transfer"
                 :transfer="transfer"
                 v-transfer-dom>
@@ -149,6 +150,14 @@
                 default () {
                     return !this.$IVIEW ? true : this.$IVIEW.capture;
                 }
+            },
+            transferClassName: {
+                type: String
+            },
+            // 4.6.0
+            eventsEnabled: {
+                type: Boolean,
+                default: false
             }
         },
         data () {
@@ -275,6 +284,12 @@
                     }
                 }
                 return size;
+            },
+            dropdownCls () {
+                return {
+                    [prefixCls + '-transfer']: this.transfer,
+                    [this.transferClassName]: this.transferClassName
+                };
             }
         },
         methods: {
