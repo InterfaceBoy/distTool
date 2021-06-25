@@ -1,11 +1,31 @@
+/*
+ * @Author: 何元鹏
+ * @Date: 2020-07-31 11:16:20
+ * @LastEditors: 何元鹏
+ * @LastEditTime: 2021-06-25 10:06:51
+ */
 module.exports = {
   root: true,
   env: {
     node: true
   },
-  extends: ["plugin:vue/essential"],
+  extends: ["plugin:vue/essential", "eslint:recommended", "@vue/prettier"],
+  parserOptions: {
+    parser: "babel-eslint"
+  },
   rules: {
     "no-console": 0,
+    "prefer-const": [
+      2,
+      {
+        destructuring: "any",
+        ignoreReadBeforeAssign: false
+      }
+    ],
+    "no-var": 2,
+    "no-unused-vars": 0,
+    "no-use-v-if-with-v-for": 0,
+    "vue/no-parsing-error": [2, { "x-invalid-end-tag": false }],
     "no-debugger": process.env.NODE_ENV === "production" ? "error" : "off",
     "vue/no-parsing-error": [2, {
       "x-invalid-end-tag": false
