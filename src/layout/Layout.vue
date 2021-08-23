@@ -1,3 +1,10 @@
+<!--
+ * @Author: 何元鹏
+ * @Date: 2020-07-31 11:03:21
+ * @LastEditors: 何元鹏
+ * @LastEditTime: 2021-08-23 10:59:14
+-->
+
 <template>
   <div class="app-main">
     <header class="app-main-header">
@@ -8,12 +15,12 @@
         @on-select="handelMenuItemSelect"
       >
         <MenuItem
-          v-for="(item,index)  in routerHome"
+          v-for="(item, index) in routerHome"
           :key="index"
           :name="JSON.stringify(item)"
         >
-        <Icon :type="item.meta.icon" />
-        {{item.meta.title}}
+          <Icon :type="item.meta.icon" />
+          {{ item.meta.title }}
         </MenuItem>
       </Menu>
     </header>
@@ -37,24 +44,24 @@ export default {
   // 组件参数 接收来自父组件的数据
   props: {},
   // 局部注册的组件
-   components: { },
+  components: {},
   // 组件状态值
   data() {
     return {
-      subordinateRoute:store.getters["app/getRouterInfo"]
+      subordinateRoute: store.getters["app/getRouterInfo"]
     };
   },
   // 计算属性
   computed: {
     routerHome() {
-      console.log(this.$router.options.routes,this.$route.path);
+      console.log(this.$router.options.routes, this.$route.path);
       return this.$router.options.routes;
     },
     key() {
       return this.$route.name !== undefined
         ? this.$route.name + +new Date()
         : this.$route + +new Date();
-    },
+    }
   },
   // 侦听器
   watch: {},
@@ -62,22 +69,19 @@ export default {
   methods: {
     handelMenuItemSelect(e) {
       const routeInfo = JSON.parse(e);
-      console.log(routeInfo);
-      const {name,children} =routeInfo;
-      console.log(name,children,children.length);
-      this.subordinateRoute = children.length<2 ?[]:children;
+      const { name, children } = routeInfo;
+      this.subordinateRoute = children?.length < 2 ? [] : children;
       this.$router.push({
-        name,
+        name
       });
-    },
-
+    }
   },
   // 以下是生命周期钩子   注：没用到的钩子请自行删除
   /**
    * 在实例初始化之后，组件属性计算之前，如data属性等
    */
   beforeCreate() {
-    console.log( store.getters["app/RouterInfo"]);
+    console.log(store.getters["app/RouterInfo"]);
   },
   /**
    * 组件实例创建完成，属性已绑定，但DOM还未生成，$ el属性还不存在
@@ -118,7 +122,7 @@ export default {
    * Vue 实例销毁后调用。调用后，Vue 实例指示的所有东西都会解绑定，
    * 所有的事件监听器会被移除，所有的子实例也会被销毁。
    */
-  destroyed() {},
+  destroyed() {}
 };
 </script>
 
