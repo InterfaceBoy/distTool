@@ -2,7 +2,7 @@
  * @Author: 何元鹏
  * @Date: 2021-02-18 11:44:09
  * @LastEditors: 何元鹏
- * @LastEditTime: 2021-08-23 14:02:21
+ * @LastEditTime: 2021-09-14 15:29:03
 -->
 <template>
   <div class="sign-In">
@@ -54,6 +54,14 @@
           </FormItem>
         </Form>
       </div>
+      <iframe
+        width="100%"
+        height="100%"
+        :src="src"
+        frameborder="0"
+        ref="iframe"
+        id="myframe"
+      ></iframe>
     </div>
   </div>
 </template>
@@ -99,7 +107,8 @@ export default {
           }
         ]
       },
-      time: ""
+      time: "",
+      src: ""
     };
   },
   mounted() {
@@ -167,7 +176,7 @@ export default {
     handleSubmit() {
       this.$refs.formInline.validate(async valid => {
         if (valid) {
-          this.$router.push({ path: "/map" || "/" });
+          this.$router.push({ path: "/home" || "/" });
         } else {
           this.$Message.error("请确认登录信息填写完整!");
           return;

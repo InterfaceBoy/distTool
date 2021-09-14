@@ -2,26 +2,37 @@
  * @Author: 何元鹏
  * @Date: 2020-10-07 10:41:02
  * @LastEditors: 何元鹏
- * @LastEditTime: 2021-08-23 14:02:09
+ * @LastEditTime: 2021-08-30 11:16:46
  */
 import Vue from "vue";
 import VueRouter from "vue-router";
 import { isDev } from "@/utils/base";
 import Layout from "@/layout/Layout.vue";
-import HomePage from "@/views/home-page.vue";
+import Login from "@/views/login.vue";
 
 Vue.use(VueRouter);
 
 export const constantRoutes = [
   {
     path: "/",
+    name: "Login",
+    meta: {
+      title: "登录",
+      icon: "logo-apple"
+    },
+    component: Login
+  },
+  {
+    path: "/home",
     name: "homePage",
     meta: {
       title: "首页",
       icon: "md-easel"
     },
-    component: HomePage
+    component: () =>
+      import(/* webpackChunkName: "MonitorWorning" */ "@/views/home-page.vue")
   },
+
   {
     path: "/map",
     component: Layout,
@@ -58,15 +69,30 @@ export const constantRoutes = [
       }
     ]
   },
+
   {
-    path: "/login",
-    name: "Login",
+    path: "/ECMAScript",
+    component: Layout,
+    redirect: "/grammar",
+    name: "ECMAScript",
     meta: {
-      title: "登录",
-      icon: "logo-xbox"
+      title: "ES6语法",
+      icon: "md-boat"
     },
-    component: () =>
-      import(/* webpackChunkName: "MonitorWorning" */ "@/views/login.vue")
+    children: [
+      {
+        path: "/grammar",
+        name: "grammar",
+        meta: {
+          title: "语法",
+          icon: "md-boat"
+        },
+        component: () =>
+          import(
+            /* webpackChunkName: "MonitorWorning" */ "@/views/ECMAScript/grammar.vue"
+          )
+      }
+    ]
   }
 ];
 

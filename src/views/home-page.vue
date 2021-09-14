@@ -2,7 +2,7 @@
  * @Author: 何元鹏
  * @Date: 2021-06-11 14:49:57
  * @LastEditors: 何元鹏
- * @LastEditTime: 2021-08-23 13:59:48
+ * @LastEditTime: 2021-08-30 11:17:52
 -->
 <template>
   <!-- This example requires Tailwind CSS v2.0+ -->
@@ -71,13 +71,11 @@
                     地图
                   </a>
                 </router-link>
-
-                <a
-                  href="#"
-                  class="font-medium text-gray-500 hover:text-gray-900"
-                  >基础</a
-                >
-
+                <router-link to="/ECMAScript">
+                  <a class="font-medium text-gray-500 hover:text-gray-900">
+                    基础
+                  </a>
+                </router-link>
                 <a
                   href="#"
                   class="font-medium text-gray-500 hover:text-gray-900"
@@ -118,7 +116,7 @@
             >
               <div class="rounded-md shadow">
                 <router-link
-                  to="/login"
+                  to="/"
                   class="w-full flex items-center justify-center px-8 py-3 border border-transparent text-base font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 md:py-4 md:text-lg md:px-10"
                 >
                   登录
