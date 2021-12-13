@@ -2,11 +2,11 @@
  * @Author: 何元鹏
  * @Date: 2020-10-07 10:41:02
  * @LastEditors: 何元鹏
- * @LastEditTime: 2021-08-30 11:16:46
+ * @LastEditTime: 2021-12-13 15:16:47
  */
 import Vue from "vue";
 import VueRouter from "vue-router";
-import { isDev } from "@/utils/base";
+// import { isDev } from "@/utils/base";
 import Layout from "@/layout/Layout.vue";
 import Login from "@/views/login.vue";
 
@@ -130,8 +130,9 @@ export function resetRouter() {
 // https://github.com/vuejs/vue-router/issues/2881
 const originalPush = VueRouter.prototype.push;
 VueRouter.prototype.push = function push(location, onResolve, onReject) {
-  if (onResolve || onReject)
+  if (onResolve || onReject) {
     return originalPush.call(this, location, onResolve, onReject);
+  }
   return originalPush.call(this, location).catch(err => err);
 };
 

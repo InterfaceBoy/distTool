@@ -2,7 +2,7 @@
  * @Author: 何元鹏
  * @Date: 2020-07-31 11:03:21
  * @LastEditors: 何元鹏
- * @LastEditTime: 2021-08-23 10:59:14
+ * @LastEditTime: 2021-12-13 15:22:18
 -->
 
 <template>
@@ -38,13 +38,14 @@
 
 <script>
 import store from "@/store";
+
 export default {
   // 组件名称
   name: "Layout",
-  // 组件参数 接收来自父组件的数据
-  props: {},
   // 局部注册的组件
   components: {},
+  // 组件参数 接收来自父组件的数据
+  props: {},
   // 组件状态值
   data() {
     return {
@@ -65,17 +66,6 @@ export default {
   },
   // 侦听器
   watch: {},
-  // 组件方法
-  methods: {
-    handelMenuItemSelect(e) {
-      const routeInfo = JSON.parse(e);
-      const { name, children } = routeInfo;
-      this.subordinateRoute = children?.length < 2 ? [] : children;
-      this.$router.push({
-        name
-      });
-    }
-  },
   // 以下是生命周期钩子   注：没用到的钩子请自行删除
   /**
    * 在实例初始化之后，组件属性计算之前，如data属性等
@@ -122,7 +112,18 @@ export default {
    * Vue 实例销毁后调用。调用后，Vue 实例指示的所有东西都会解绑定，
    * 所有的事件监听器会被移除，所有的子实例也会被销毁。
    */
-  destroyed() {}
+  destroyed() {},
+  // 组件方法
+  methods: {
+    handelMenuItemSelect(e) {
+      const routeInfo = JSON.parse(e);
+      const { name, children } = routeInfo;
+      this.subordinateRoute = children?.length < 2 ? [] : children;
+      this.$router.push({
+        name
+      });
+    }
+  }
 };
 </script>
 

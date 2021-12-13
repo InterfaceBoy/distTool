@@ -1,4 +1,10 @@
 <!--
+ * @Author: 何元鹏
+ * @Date: 2020-07-31 11:03:21
+ * @LastEditors: 何元鹏
+ * @LastEditTime: 2021-12-13 15:21:36
+-->
+<!--
  * @Description: svg图标预览组件，建议新增路由页面加载
 -->
 
@@ -10,7 +16,7 @@ const icons = require
   .map(name => name.replace(/^\.\/([\w-]+)\.svg/, "$1"));
 
 export default {
-  name: "svg-viewer",
+  name: "SvgViewer",
   methods: {
     async handleIconClick(iconName) {
       await navigator.clipboard.writeText(`<SvgIcon name='${iconName}' />`);

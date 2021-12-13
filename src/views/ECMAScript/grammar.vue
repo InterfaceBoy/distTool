@@ -2,7 +2,7 @@
  * @Author: 何元鹏
  * @Date: 2021-08-30 11:13:53
  * @LastEditors: 何元鹏
- * @LastEditTime: 2021-09-01 10:53:59
+ * @LastEditTime: 2021-12-13 15:15:18
 -->
 <template>
   <div></div>
@@ -11,7 +11,9 @@
 <script>
 export default {
   // 组件名称
-  name: "demo",
+  name: "Demo",
+  // 局部注册的组件
+  components: {},
   // 组件参数 接收来自父组件的数据
   props: {
     cs: {
@@ -19,18 +21,114 @@ export default {
       default: () => ""
     }
   },
-  // 局部注册的组件
-  components: {},
   // 组件状态值
   data() {
-    return {};
+    return {
+      tree: [
+        {
+          name: "一号",
+          age: 100,
+          children: [
+            {
+              name: "一号大儿子",
+              age: 75,
+              children: [
+                {
+                  name: "一号大孙子",
+                  age: 50,
+                  children: [{ name: "一号大重孙子", age: 25, children: [] }]
+                },
+                { name: "一号二孙子", age: 49, children: [] }
+              ]
+            },
+            {
+              name: "一号二儿子",
+              age: 65,
+              children: [
+                { name: "一号二儿子的大儿子", age: 38, children: [] },
+                { name: "一号二儿子的二儿子", age: 35, children: [] }
+              ]
+            }
+          ]
+        }
+      ],
+      list: [
+        {
+          id: "p1",
+          title: "广东"
+        },
+        {
+          id: "p1-1",
+          pid: "p1",
+          title: "广州"
+        },
+        {
+          id: "p2",
+          title: "四川"
+        },
+        {
+          id: "p2-1",
+          pid: "p2",
+          title: "成都"
+        },
+        {
+          id: "p2-2",
+          pid: "p2",
+          title: "德阳"
+        },
+        {
+          id: "p2-3",
+          pid: "p2",
+          title: "绵阳"
+        },
+        {
+          id: "p2-1-1",
+          pid: "p2-1",
+          title: "高新区"
+        }
+      ]
+    };
   },
   // 计算属性
   computed: {},
   // 侦听器
   watch: {},
+  created() {},
+  mounted() {
+    this.grammarGet();
+    this.treeConversionListArray(this.tree);
+    this.listConversionTree(this.list);
+    this.interviewQuestions();
+  },
   // 组件方法
   methods: {
+    /**
+     * @description:
+     * @param {*}
+     * @return {*}
+     */
+    interviewQuestions() {
+      const x = 1;
+      function f(
+        x,
+        y = function() {
+          x = 3;
+          console.log(x);
+        }
+      ) {
+        console.log(x);
+        x = 2;
+        y();
+        console.log(x);
+      }
+      f();
+      console.log(x);
+    },
+    /**
+     * @description: class方法
+     * @param {*}
+     * @return {*}
+     */
     grammarGet() {
       function Point(x, y) {
         this.x = x;
@@ -56,55 +154,117 @@ export default {
       }
       const s = new Points(1, 2);
       console.log(s);
+    },
+    /**
+     * @description:tree树形转list数组
+     * @param {*}
+     * @return {*}
+     */
+    treeConversionListArray(tree) {
+      // 方法一：
+      const dataList = tree.map(i => {
+        return deepFirstSearch(i, []);
+      });
+      function deepFirstSearch(node, nodeList) {
+        if (node) {
+          nodeList.push(node);
+          const children = node.children;
+          for (
+            let i = 0;
+            i < children.length;
+            i++ // 每次递归的时候将 需要遍历的节点 和 节点所存储的数组传下去
+          ) {
+            deepFirstSearch(children[i], nodeList);
+          }
+        }
+        return nodeList;
+      }
+      return dataList;
+      /*
+      // 方法二
+      let list = [];
+      function treeDataList(tree, listData) {
+        console.log(listData);
+        tree.forEach((i) => {
+          const { children, ...other } = i;
+          if (children.length > 0) {
+            treeDataList(children, Object.assign({}, listData, other));
+          } else {
+            console.log(other, listData);
+            list.push(Object.assign({}, listData, other));
+          }
+        });
+
+        console.log(list);
+      }
+      treeDataList(tree, {});
+      return list; */
+      /*  const list = [];
+      const queue = [...tree];
+      console.log(queue, queue.length, queue === tree);
+      while (queue.length) {
+        const node = queue.pop()
+        const nodeChildren = node.children;
+        if (nodeChildren) {
+          queue.push(...nodeChildren);
+        }
+        const { children, ...other } = node;
+        list.push(other);
+      }
+      return list;
+      */
+    },
+    /**
+     * @description: list数组转tree树形
+     * @param {*}
+     * @return {*}
+     */
+    listConversionTree(list) {
+      // 方法一：双层循环
+      list.forEach(child => {
+        const pid = child.pid;
+        if (pid) {
+          list.forEach(parent => {
+            if (parent.id === pid) {
+              parent.children = parent.children || [];
+              parent.children.push(child);
+            }
+          });
+        }
+      });
+      return list.filter(n => !n.pid);
+      /*
+      // 递归组装
+      const tree = [];
+      for (const node of list) {
+        // 如果没有pid就可以认为是根节点
+        if (!node.pid) {
+          let p = { ...node };
+          p.children = getChildren(p.id, list);
+          tree.push(p);
+        }
+      }
+      function getChildren(id, list) {
+        const children = [];
+        for (const node of list) {
+          if (node.pid === id) {
+            children.push(node);
+          }
+        }
+
+        for (const node of children) {
+          const children = getChildren(node.id, list);
+          if (children.length) {
+            node.children = children;
+          }
+        }
+
+        return children;
+      }
+      console.log(tree);
+      return tree; */
     }
-  },
-  // 以下是生命周期钩子   注：没用到的钩子请自行删除
-  /**
-   * 在实例初始化之后，组件属性计算之前，如data属性等
-   */
-  beforeCreate() {},
-  /**
-   * 组件实例创建完成，属性已绑定，但DOM还未生成，$ el属性还不存在
-   */
-  created() {},
-  /**
-   * 在挂载开始之前被调用：相关的 render 函数首次被调用。
-   */
-  beforeMount() {},
-  /**
-   * el 被新创建的 vm.$ el 替换，并挂载到实例上去之后调用该钩子。
-   * 如果 root 实例挂载了一个文档内元素，当 mounted 被调用时 vm.$ el 也在文档内。
-   */
-  mounted() {
-    this.grammarGet();
-  },
-  /**
-   * 数据更新时调用，发生在虚拟 DOM 重新渲染和打补丁之前。
-   * 你可以在这个钩子中进一步地更改状态，这不会触发附加的重渲染过程。
-   */
-  beforeUpdate() {},
-  /**
-   * 由于数据更改导致的虚拟 DOM 重新渲染和打补丁，在这之后会调用该钩子。
-   * 当这个钩子被调用时，组件 DOM 已经更新，所以你现在可以执行依赖于 DOM 的操作。
-   */
-  updated() {},
-  /**
-   * keep-alive 组件激活时调用。 仅针对keep-alive 组件有效
-   */
-  activated() {},
-  /**
-   * keep-alive 组件停用时调用。 仅针对keep-alive 组件有效
-   */
-  deactivated() {},
-  /**
-   * 实例销毁之前调用。在这一步，实例仍然完全可用。
-   */
-  beforeDestroy() {},
-  /**
-   * Vue 实例销毁后调用。调用后，Vue 实例指示的所有东西都会解绑定，
-   * 所有的事件监听器会被移除，所有的子实例也会被销毁。
-   */
-  destroyed() {}
+  }
 };
 </script>
 

@@ -2,7 +2,7 @@
  * @Author: 何元鹏
  * @Date: 2021-02-18 11:44:09
  * @LastEditors: 何元鹏
- * @LastEditTime: 2021-09-14 15:29:03
+ * @LastEditTime: 2021-12-13 15:21:14
 -->
 <template>
   <div class="sign-In">
@@ -54,14 +54,6 @@
           </FormItem>
         </Form>
       </div>
-      <iframe
-        width="100%"
-        height="100%"
-        :src="src"
-        frameborder="0"
-        ref="iframe"
-        id="myframe"
-      ></iframe>
     </div>
   </div>
 </template>
@@ -107,25 +99,8 @@ export default {
           }
         ]
       },
-      time: "",
-      src: ""
+      time: ""
     };
-  },
-  mounted() {
-    const date = new Date();
-    const mins =
-      parseFloat(date.getMinutes()) < 10
-        ? "0" + parseFloat(date.getMinutes())
-        : parseFloat(date.getMinutes());
-    this.time = parseFloat(date.getHours()) + ":" + mins;
-    setInterval(() => {
-      const date = new Date();
-      const mins =
-        parseFloat(date.getMinutes()) < 10
-          ? "0" + parseFloat(date.getMinutes())
-          : parseFloat(date.getMinutes());
-      this.time = parseFloat(date.getHours()) + ":" + mins;
-    }, 20000);
   },
   computed: {
     amOrPm() {
@@ -172,14 +147,29 @@ export default {
       return "周" + convertDay;
     }
   },
+  mounted() {
+    const date = new Date();
+    const mins =
+      parseFloat(date.getMinutes()) < 10
+        ? "0" + parseFloat(date.getMinutes())
+        : parseFloat(date.getMinutes());
+    this.time = parseFloat(date.getHours()) + ":" + mins;
+    setInterval(() => {
+      const date = new Date();
+      const mins =
+        parseFloat(date.getMinutes()) < 10
+          ? "0" + parseFloat(date.getMinutes())
+          : parseFloat(date.getMinutes());
+      this.time = parseFloat(date.getHours()) + ":" + mins;
+    }, 20000);
+  },
   methods: {
     handleSubmit() {
-      this.$refs.formInline.validate(async valid => {
+      this.$refs.formInline.validate(valid => {
         if (valid) {
           this.$router.push({ path: "/home" || "/" });
         } else {
           this.$Message.error("请确认登录信息填写完整!");
-          return;
         }
       });
     }

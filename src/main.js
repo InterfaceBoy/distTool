@@ -2,10 +2,9 @@
  * @Author: 何元鹏
  * @Date: 2020-05-29 10:42:53
  * @LastEditors: 何元鹏
- * @LastEditTime: 2021-06-23 10:23:28
+ * @LastEditTime: 2021-12-13 15:17:53
  */
 
-// babel polyfill
 import "core-js/stable";
 import "regenerator-runtime/runtime";
 
