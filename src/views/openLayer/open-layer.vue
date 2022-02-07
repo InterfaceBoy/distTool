@@ -1,10 +1,19 @@
+<!--
+ * @Author: 何元鹏
+ * @Date: 2021-05-20 14:32:51
+ * @LastEditors: 何元鹏
+ * @LastEditTime: 2021-12-13 15:47:43
+-->
 <template>
   <div id="openLayer">
     <div class="cell cell-map">
-      <MapContainer :geojson="geojson" v-on:select="selected = $event"></MapContainer>
+      <MapContainer
+        :geojson="geojson"
+        @select="selected = $event"
+      ></MapContainer>
     </div>
     <div class="cell cell-edit">
-      <Edit :geojson="geojson" v-on:change="geojson = $event"></Edit>
+      <Edit :geojson="geojson" @change="geojson = $event"></Edit>
     </div>
     <div class="cell cell-inspect">
       <Inspect :feature="selected"></Inspect>
@@ -16,12 +25,13 @@
 import MapContainer from "./components/map-container";
 import Edit from "./components/edit";
 import Inspect from "./components/inspect";
+
 export default {
-  name: "openLayer",
+  name: "OpenLayer",
   components: {
     Inspect,
     Edit,
-    MapContainer,
+    MapContainer
   },
   data: () => ({
     selected: undefined,
@@ -29,7 +39,7 @@ export default {
       type: "Feature",
       properties: {
         name: "default object",
-        quality: "top",
+        quality: "top"
       },
       geometry: {
         type: "Polygon",
@@ -38,12 +48,12 @@ export default {
             [-27.0703125, 43.58039085560784],
             [-28.125, 23.563987128451217],
             [-10.8984375, 32.84267363195431],
-            [-27.0703125, 43.58039085560784],
-          ],
-        ],
-      },
-    },
-  }),
+            [-27.0703125, 43.58039085560784]
+          ]
+        ]
+      }
+    }
+  })
 };
 </script>
 

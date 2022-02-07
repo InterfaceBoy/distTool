@@ -2,7 +2,7 @@
  * @Author: 何元鹏
  * @Date: 2021-08-30 11:13:53
  * @LastEditors: 何元鹏
- * @LastEditTime: 2021-12-13 15:15:18
+ * @LastEditTime: 2022-01-12 17:21:01
 -->
 <template>
   <div></div>
@@ -96,14 +96,57 @@ export default {
   created() {},
   mounted() {
     this.grammarGet();
-    this.treeConversionListArray(this.tree);
+    /* this.treeConversionListArray(this.tree);
     this.listConversionTree(this.list);
-    this.interviewQuestions();
+    this.interviewQuestions(); */
   },
   // 组件方法
   methods: {
     /**
-     * @description:
+     * @description: class方法
+     * @param {*}
+     * @return {*}
+     */
+    grammarGet() {
+      class Points {
+        constructor(x, y) {
+          this.x = x;
+          this.y = y;
+
+          if (x === 1) {
+            return {
+              bar: "bar"
+            };
+          }
+        }
+
+        handelCount() {
+          return this.x + this.y;
+        }
+
+        get handelName() {
+          return this.name;
+        }
+
+        set handelName(newName) {
+          this.name = `${newName}我进入了class${this.x + this.y}`;
+        }
+
+        static locate() {
+          return new Points(3, 4);
+        }
+      }
+      const s = new Points(2, 4);
+      s.x = s.x + 6;
+      console.log(s.x, false - 1);
+      s.handelName = "何元鹏";
+      const name = s.handelName;
+      console.log(name);
+      console.log(Points.locate().handelCount());
+      console.log(s.handelCount());
+    },
+    /**
+     * @description:关于变量提升的面试题
      * @param {*}
      * @return {*}
      */
@@ -124,37 +167,7 @@ export default {
       f();
       console.log(x);
     },
-    /**
-     * @description: class方法
-     * @param {*}
-     * @return {*}
-     */
-    grammarGet() {
-      function Point(x, y) {
-        this.x = x;
-        this.y = y;
-      }
 
-      Point.prototype.a = function() {
-        return this.x + this.y;
-      };
-
-      const p = new Point(1, 2);
-      console.log(p);
-
-      class Points {
-        constructor(x, y) {
-          this.x = x;
-          this.y = y;
-        }
-
-        toString() {
-          return this.x + this.y;
-        }
-      }
-      const s = new Points(1, 2);
-      console.log(s);
-    },
     /**
      * @description:tree树形转list数组
      * @param {*}

@@ -13,7 +13,7 @@ import OSM from "ol/source/OSM";
 import { fromLonLat } from "ol/proj";
 import {
   defaults as defaultInteractions,
-  DragRotateAndZoom,
+  DragRotateAndZoom
 } from "ol/interaction";
 import { defaults, FullScreen, MousePosition, ScaleLine } from "ol/control";
 import Overlay from "ol/Overlay";
@@ -22,8 +22,11 @@ import Point from "ol/geom/Point";
 import { Vector as VectorLayer } from "ol/layer";
 import { Vector as VectorSource } from "ol/source";
 import { Style, Icon } from "ol/style";
+// eslint-disable-next-line no-unused-vars
 import { createRegularPolygon, createBox } from "ol/interaction/Draw";
+// eslint-disable-next-line no-duplicate-imports
 import { Modify } from "ol/interaction";
+// eslint-disable-next-line no-duplicate-imports
 import { Draw } from "ol/interaction";
 
 import "ol/ol.css";
@@ -41,8 +44,8 @@ export default {
       loadTilesWhileAnimating: true,
       layers: [
         new TileLayer({
-          source: new OSM(),
-        }),
+          source: new OSM()
+        })
       ],
       view: new View({
         // fromLonLat方法能将坐标从经度/纬度转换为其他投影
@@ -50,36 +53,36 @@ export default {
         zoom: 15, // 缩放级别
         minZoom: 0, // 最小缩放级别
         maxZoom: 18, // 最大缩放级别
-        constrainResolution: true, // 因为存在非整数的缩放级别，所以设置该参数为true来让每次缩放结束后自动缩放到距离最近的一个整数级别，这个必须要设置，当缩放在非整数级别时地图会糊
+        constrainResolution: true // 因为存在非整数的缩放级别，所以设置该参数为true来让每次缩放结束后自动缩放到距离最近的一个整数级别，这个必须要设置，当缩放在非整数级别时地图会糊
       }),
       // 用于地图旋转
       interactions: defaultInteractions().extend([new DragRotateAndZoom()]),
       controls: defaults().extend([
         new FullScreen(), // 全屏
         new MousePosition(), // 显示鼠标当前位置的经纬度
-        new ScaleLine(), // 显示比例尺
-      ]),
+        new ScaleLine() // 显示比例尺
+      ])
     });
     /*
     获取四至范围
     */
-    let range = this.olMap.getView().calculateExtent(this.olMap.getSize());
-    let state = {
+    const range = this.olMap.getView().calculateExtent(this.olMap.getSize());
+    const state = {
       minLon: range[0],
       minLat: range[1],
       maxLon: range[2],
       maxLat: range[3],
-      zoomLevel: this.olMap.getView().getZoom(), // 当前缩放级别，缩放级别可用来判断是否要将要素聚合进行显示
+      zoomLevel: this.olMap.getView().getZoom() // 当前缩放级别，缩放级别可用来判断是否要将要素聚合进行显示
     };
     console.log(state);
     /*
     创建标记点
     */
-    let marker = new Overlay({
+    const marker = new Overlay({
       element: this.$refs.olPopup,
       positioning: fromLonLat([120.771441, 30.756434]), // 根据position属性的位置来进行相对点位
       offset: [-17, 17], // 在positioning之上再进行偏移
-      autoPan: true,
+      autoPan: true
     });
     this.olMap.addOverlay(marker);
 
@@ -87,8 +90,8 @@ export default {
     创建标记点icon
      */
     // 实例化要素
-    let feature = new Feature({
-      geometry: new Point([120.771441, 30.756433]), // 地理几何图形选用点几何
+    const feature = new Feature({
+      geometry: new Point([120.771441, 30.756433]) // 地理几何图形选用点几何
     });
 
     // 设置样式，这里就是显示一张图片icon
@@ -97,18 +100,18 @@ export default {
         image: new Icon({
           anchor: [0.5, 1], // 显示位置
           size: [18, 28], // 尺寸
-          src: require("@/assets/map_d.png"), // 图片url
-        }),
-      }),
+          src: require("@/assets/map_d.png") // 图片url
+        })
+      })
     ]);
 
     // 矢量源
-    let source = new VectorSource({
-      features: [feature],
+    const source = new VectorSource({
+      features: [feature]
     });
     // 矢量图层
-    let vector = new VectorLayer({
-      source: source,
+    const vector = new VectorLayer({
+      source: source
     });
     // 添加到地图
     this.olMap.addLayer(vector);
@@ -119,7 +122,7 @@ export default {
     // createRegularPolygon方法执行后返回一个创建正方形的geometryFunction
     // createBox方法执行后返回一个创建长方形的geometryFunction
 
-    let draw = new Draw({
+    const draw = new Draw({
       source: source,
       type: "Circle",
       // geometryFunction: createBox(),
@@ -127,12 +130,12 @@ export default {
         image: new Icon({
           anchor: [0.5, 1], // 显示位置
           size: [12, 24], // 尺寸
-          src: require("@/assets/map_d.png"), // 图片url
-        }),
-      }),
+          src: require("@/assets/map_d.png") // 图片url
+        })
+      })
     });
     // 监听完成事件
-    draw.on("drawend", (e) => {
+    draw.on("drawend", e => {
       console.log(e);
       // 如果只需要放置一个的话可以移除该交互，否则可以一直添加
       this.olMap.removeInteraction(draw);
@@ -140,11 +143,11 @@ export default {
     this.olMap.addInteraction(draw);
 
     /* 可拖动多边形 */
-    let modify = new Modify({
-      source,
+    const modify = new Modify({
+      source
     });
     this.olMap.addInteraction(modify);
-  },
+  }
 };
 </script>
 <style lang="scss" scoped>

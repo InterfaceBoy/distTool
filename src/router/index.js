@@ -2,7 +2,7 @@
  * @Author: 何元鹏
  * @Date: 2020-10-07 10:41:02
  * @LastEditors: 何元鹏
- * @LastEditTime: 2021-12-13 15:16:47
+ * @LastEditTime: 2022-02-07 16:28:38
  */
 import Vue from "vue";
 import VueRouter from "vue-router";
@@ -32,7 +32,6 @@ export const constantRoutes = [
     component: () =>
       import(/* webpackChunkName: "MonitorWorning" */ "@/views/home-page.vue")
   },
-
   {
     path: "/map",
     component: Layout,
@@ -69,7 +68,6 @@ export const constantRoutes = [
       }
     ]
   },
-
   {
     path: "/ECMAScript",
     component: Layout,
@@ -90,6 +88,42 @@ export const constantRoutes = [
         component: () =>
           import(
             /* webpackChunkName: "MonitorWorning" */ "@/views/ECMAScript/grammar.vue"
+          )
+      }
+    ]
+  },
+  {
+    path: "/cesium",
+    component: Layout,
+    redirect: "/cesium",
+    name: "cesium",
+    meta: {
+      title: "三维",
+      icon: "md-boat"
+    },
+    children: [
+      {
+        path: "/cesium",
+        name: "cesium",
+        meta: {
+          title: "基础",
+          icon: "md-boat"
+        },
+        component: () =>
+          import(
+            /* webpackChunkName: "MonitorWorning" */ "@/views/cesium/cesium.vue"
+          )
+      },
+      {
+        path: "/three",
+        name: "three",
+        meta: {
+          title: "Three",
+          icon: "md-boat"
+        },
+        component: () =>
+          import(
+            /* webpackChunkName: "MonitorWorning" */ "@/views/cesium/three.vue"
           )
       }
     ]

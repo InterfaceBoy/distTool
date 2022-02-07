@@ -2,7 +2,7 @@
  * @Author: 何元鹏
  * @Date: 2019-11-25 17:00:08
  * @LastEditors: 何元鹏
- * @LastEditTime: 2020-05-29 10:56:52
+ * @LastEditTime: 2021-12-13 15:45:16
  * @Description: axios 二次封装
  */
 
@@ -23,6 +23,7 @@ export default class HttpRequest {
     this.interceptors();
     return this.instance;
   }
+
   // 拦截器
   interceptors(instance = this.instance) {
     // 请求拦截
@@ -65,10 +66,9 @@ export default class HttpRequest {
             return Promise.reject(error.message);
           }
           return Promise.resolve(data);
-        } else {
-          this.errorHook(response);
-          return showErrorMessage && iview.Message.error(status);
         }
+        this.errorHook(response);
+        return showErrorMessage && iview.Message.error(status);
       },
       error => {
         this.errorHook(error.response);
@@ -77,6 +77,7 @@ export default class HttpRequest {
       }
     );
   }
+
   static get(...args) {
     return axios.get(...args);
   }

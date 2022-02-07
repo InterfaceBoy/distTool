@@ -1,5 +1,6 @@
-import { getUserInfo, logout } from "@/api/user";
+import { getUserInfo } from "@/api/user";
 
+/* , logout */
 const user = {
   namespaced: true,
 
@@ -36,26 +37,26 @@ const user = {
       const data = await getUserInfo();
       commit("setUserInfo", data);
     }
-    // async getUserRegion({ commit }) {
-    //   const data = await getUserRegion();
-    //   commit("setUserRegion", data);
-    // },
-    // async getUsercity({ commit }) {
-    //   const data = await getUsercity();
-    //   commit("setUsercity", data);
-    // },
-    // async userLogout({ commit }) {
-    //   await logout();
-    //   commit("resetAddRoutes");
-    //   commit("resetUserInfo");
-    //   resetRouter();
-    // },
-    // // 重置用户信息和权限路由表
-    // resetUserInfoAndAddRoutes({ commit }) {
-    //   commit("resetAddRoutes");
-    //   commit("resetUserInfo");
-    //   resetRouter();
-    // }
+    /*  async getUserRegion({ commit }) {
+      const data = await getUserRegion();
+      commit("setUserRegion", data);
+    },
+    async getUsercity({ commit }) {
+      const data = await getUsercity();
+      commit("setUsercity", data);
+    },
+    async userLogout({ commit }) {
+      await logout();
+      commit("resetAddRoutes");
+      commit("resetUserInfo");
+      resetRouter();
+    },
+    // 重置用户信息和权限路由表
+    resetUserInfoAndAddRoutes({ commit }) {
+      commit("resetAddRoutes");
+      commit("resetUserInfo");
+      resetRouter();
+    } */
   },
 
   getters: {

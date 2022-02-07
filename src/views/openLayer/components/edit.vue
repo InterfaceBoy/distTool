@@ -1,3 +1,9 @@
+<!--
+ * @Author: 何元鹏
+ * @Date: 2021-05-20 16:16:48
+ * @LastEditors: 何元鹏
+ * @LastEditTime: 2021-12-13 15:45:43
+-->
 <template>
   <textarea v-model="geojsonEdit"></textarea>
 </template>
@@ -6,7 +12,7 @@
 export default {
   name: "Edit",
   props: {
-    geojson: Object,
+    geojson: Object
   },
   computed: {
     geojsonEdit: {
@@ -17,9 +23,9 @@ export default {
       get() {
         console.log(this.geojson);
         return JSON.stringify(this.geojson, null, " ");
-      },
-    },
-  },
+      }
+    }
+  }
 };
 </script>
 
