@@ -21,7 +21,7 @@
     "hjson": "^3.2.2",
     "i": "^0.3.6",
     "ol": "^6.5.0",
-    "postcss": "^7.0.36",
+    "postcss": "^8.2.13",
     "stats.js": "^0.17.0",
     "tailwindcss": "npm:@tailwindcss/postcss7-compat@^2.2.2",
     "three": "^0.136.0",
