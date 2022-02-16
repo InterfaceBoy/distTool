@@ -12,6 +12,8 @@
     "@tailwindcss/postcss7-compat": "^2.2.2",
     "autoprefixer": "^9.8.6",
     "axios": "0.18.0",
+    "cesium": "^1.90.0",
+    "copy-webpack-plugin": "6",
     "core-js": "^3.6.5",
     "dat.gui": "^0.7.7",
     "data-gui": "^0.6.3",

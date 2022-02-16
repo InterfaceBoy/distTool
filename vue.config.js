@@ -2,12 +2,15 @@
  * @Author: 何元鹏
  * @Date: 2020-05-29 12:50:54
  * @LastEditors: 何元鹏
- * @LastEditTime: 2020-07-23 11:08:26
+ * @LastEditTime: 2022-02-16 15:06:33
  */
 
 const CompressionPlugin = require("compression-webpack-plugin");
-
 const productionGzipExtensions = ["js", "css"];
+
+const Path = require("path");
+const CopyWebpackPlugin = require('copy-webpack-plugin');
+const webpack = require('webpack');
 
 module.exports = {
   publicPath: process.env.NODE_ENV === "development" ? "/" : "./",
@@ -22,6 +25,22 @@ module.exports = {
       }
     }
   },
+  configureWebpack: {
+     plugins: [
+      new CopyWebpackPlugin({
+        patterns: [
+          { from: Path.resolve('./node_modules/cesium/Source/Workers'), to: 'Workers' },
+          { from: Path.resolve('./node_modules/cesium/Source/Assets'), to: 'Assets' },
+          { from: Path.resolve('./node_modules/cesium/Source/Widgets'), to: 'Widgets' },
+          { from: Path.resolve('./node_modules/cesium/Source/ThirdParty/Workers'), to: 'WoThirdParty/Workersrkers' },
+        ]
+      }),
+      new webpack.DefinePlugin({
+      CESIUM_BASE_URL: JSON.stringify('./')
+      })
+      ],
+  },
+
   transpileDependencies: ["view-design/src"],
   chainWebpack: config => {
     if (process.env.NODE_ENV === "production") {
