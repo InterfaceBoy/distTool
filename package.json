@@ -16,7 +16,6 @@
     "copy-webpack-plugin": "6",
     "core-js": "^3.6.5",
     "dat.gui": "^0.7.7",
-    "data-gui": "^0.6.3",
     "element-ui": "^2.15.2",
     "hjson": "^3.2.2",
     "i": "^0.3.6",
